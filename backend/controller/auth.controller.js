@@ -24,7 +24,7 @@ export const Signup = async (req, res) => {
         const createdUser = newUser.rows[0];
         const token = jwt.sign(
             { id: createdUser.id },
-            "secretkey", // ⚠️ use env in production
+            "secretkey", 
             { expiresIn: "1h" }
         );
         res.status(201).json({
@@ -42,37 +42,26 @@ export const Login = async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        // ✅ Validation
         if (!email || !password) {
             return res.status(400).json({ message: "All fields are required" });
         }
-
-        // ✅ Check user
         const result = await db.query(
             "SELECT * FROM user1 WHERE email = $1",
             [email]
         );
-
         if (result.rows.length === 0) {
             return res.status(400).json({ message: "Invalid credentials" });
         }
-
         const user = result.rows[0];
-
-        // ✅ Compare password
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             return res.status(400).json({ message: "Invalid credentials" });
         }
-
-        // 🔥 Generate Token
         const token = jwt.sign(
             { id: user.id },
-            "secretkey", // use env in production
+            "secretkey", 
             { expiresIn: "1h" }
         );
-
-        // ✅ Response
         res.status(200).json({
             message: "Login successful",
             token,
@@ -82,7 +71,6 @@ export const Login = async (req, res) => {
                 email: user.email
             }
         });
-
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Internal Server Error" });

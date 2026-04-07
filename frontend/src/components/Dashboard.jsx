@@ -36,22 +36,15 @@ const Dashboard = () => {
         </div>
 
         <div className="flex items-center gap-4">
-          {!isLoggedIn ? (
+         
             <button 
-              className="text-sm font-medium px-5 py-2 rounded-full border border-zinc-800 hover:bg-white hover:text-black transition-all"
-              onClick={() => navigate("/login")}
-            >
-              Login
-            </button>
-          ) : (
-            <button 
-              className="text-sm font-medium px-5 py-2 rounded-full border border-red-900/50 text-red-500 hover:bg-red-950 transition-all"
+              className="text-sm font-medium px-5 py-2 rounded-full border border-red-900/50 text-gray-500 hover:bg-red-950 transition-all"
               onClick={handleLogout}
             >
               Logout
             </button>
-          )}
-          <button className="bg-blue-600 text-white text-sm font-bold px-6 py-2 rounded-full hover:bg-blue-500 shadow-[0_0_15px_rgba(37,99,235,0.3)] transition-all">
+        
+          <button className="bg-blue-600 text-white text-sm font-bold px-6 py-2 rounded-full hover:bg-blue-500 shadow-[0_0_15px_rgba(37,99,235,0.3)] transition-all"               onClick={() => navigate("/login")}>
             Get Started
           </button>
         </div>
