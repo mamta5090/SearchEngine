@@ -1,28 +1,32 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { serverUrl } from '../App';
+import { AuthContext } from '../context/AuthContext';
 
 const Login = () => {
   const navigate=useNavigate();
+  const { login } = useContext(AuthContext);
   const [email,setEmail]=useState("");
   const [password,setPassword]=useState("");
+  const [error, setError] = useState("");
+  
   const handleLogin=async(e)=>{
     e.preventDefault();
-  try {
-    const res=await axios.post(`${serverUrl}/auth/login`, { email, password })
-    console.log(res.data);
-       
-            navigate("/")
-    
-  } catch (error) {
-    console.log(error.response.data.message);
-  }
+    setError("");
+    try {
+      await login(email, password);
+      navigate("/");
+    } catch (error) {
+      const message = error.response?.data?.message || 'Login failed';
+      setError(message);
+      console.log(message);
+    }
   }
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-950 text-white">
       <div className="bg-slate-900 p-8 rounded-3xl shadow-xl w-full max-w-md">
         <h2 className="text-3xl font-bold text-center mb-6">Login</h2>
+
+        {error && <div className="mb-4 p-3 bg-red-600 rounded-lg text-sm">{error}</div>}
 
         <form className="space-y-4" onSubmit={handleLogin}>
           <div>
