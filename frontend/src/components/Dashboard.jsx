@@ -5,7 +5,6 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // Check for token on mount to toggle buttons
   useEffect(() => {
     const token = localStorage.getItem("token");
     setIsLoggedIn(!!token);
@@ -15,13 +14,12 @@ const Dashboard = () => {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
     console.log("Logged out");
-    // Reloading is optional if you manage state, but kept for your logic
     window.location.reload(); 
+    navigate("/login");
   };
 
   return (
     <div className="min-h-screen bg-black text-white selection:bg-zinc-700">
-      {/* --- Navbar --- */}
       <nav className="flex items-center justify-between px-8 py-5 border-b border-zinc-900 bg-black/50 backdrop-blur-md sticky top-0 z-50">
         <div className="flex items-center gap-8">
           <h1 className="text-2xl font-black tracking-tighter italic">
@@ -51,7 +49,7 @@ const Dashboard = () => {
       </nav>
 
       <main className="max-w-7xl mx-auto">
-        {/* --- Hero Section --- */}
+     
         <section className="grid md:grid-cols-2 gap-12 px-8 py-20 items-center">
           <div className="space-y-6">
             <div className="inline-block px-3 py-1 rounded-full border border-zinc-800 text-[10px] uppercase tracking-[0.2em] text-zinc-500 font-bold">
@@ -75,7 +73,7 @@ const Dashboard = () => {
             </div>
           </div>
 
-          {/* Interactive Search Mockup */}
+        
           <div className="bg-zinc-950 border border-zinc-800 p-8 rounded-[2.5rem] shadow-2xl relative overflow-hidden group">
             <div className="absolute inset-0 bg-blue-600/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
             
@@ -107,7 +105,7 @@ const Dashboard = () => {
           </div>
         </section>
 
-        {/* --- Stats Section --- */}
+       
         <section className="px-8 pb-24">
           <div className="grid md:grid-cols-3 gap-6">
             <div className="group bg-zinc-950 border border-zinc-900 p-8 rounded-3xl hover:border-zinc-700 transition-all">
@@ -134,7 +132,7 @@ const Dashboard = () => {
           </div>
         </section>
 
-        {/* --- Footer --- */}
+       
         <footer className="px-8 py-12 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="text-zinc-600 text-xs font-mono uppercase">
             © 2026 SearchUI Algorithms Ltd.
