@@ -20,7 +20,7 @@ const ConnectionsManager = () => {
   const fetchConnections = async () => {
     try {
       const res = await api.get('/connections');
-      setConnections(res.data.data.connections);
+      setConnections(res.data.data || []);
     } catch (error) {
       toast.error('Failed to fetch connections');
     } finally {
@@ -36,7 +36,7 @@ const ConnectionsManager = () => {
     e.preventDefault();
     try {
       await api.post('/connections/test', {
-        type, host, port: Number(port), username, password, database
+        host, port: Number(port), db_username: username, password, database_name: database, ssl: false
       });
       toast.success('Connection successful!');
     } catch (error) {
@@ -48,7 +48,7 @@ const ConnectionsManager = () => {
     e.preventDefault();
     try {
       await api.post('/connections', {
-        name, type, host, port: Number(port), username, password, database
+        name, host, port: Number(port), db_username: username, password, database_name: database, ssl: false
       });
       toast.success('Connection created');
       setShowForm(false);

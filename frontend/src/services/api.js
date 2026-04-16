@@ -1,22 +1,25 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:5020/api/v1';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api/v1';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
-  withCredentials: true,
+  // withCredentials: true,
 });
 
 // Add a request interceptor to attach the JWT token
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
-    if (token) {
-      // Axios v1 may use an AxiosHeaders instance; support both shapes.
-      if (!config.headers) config.headers = {};
-      if (typeof config.headers.set === 'function') {
+    if (!config.headers) config.headers = {};
+    if (typeof config.headers.set === 'function') {
+      config.headers.set('ngrok-skip-browser-warning', 'true');
+      if (token) {
         config.headers.set('Authorization', `Bearer ${token}`);
-      } else {
+      }
+    } else {
+      config.headers['ngrok-skip-browser-warning'] = 'true';
+      if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }
     }

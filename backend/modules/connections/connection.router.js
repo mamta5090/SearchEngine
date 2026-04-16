@@ -15,6 +15,7 @@ connectionRouter.get('/',                                            ConnectionC
 connectionRouter.get('/:id',                                         ConnectionController.getOne);
 connectionRouter.put('/:id',       validate(updateConnectionSchema), ConnectionController.update);
 connectionRouter.delete('/:id',                                      ConnectionController.delete);
+connectionRouter.post('/test',                                       ConnectionController.testNew);
 connectionRouter.post('/:id/test',                                   ConnectionController.test);
 
 export default connectionRouter;

@@ -44,4 +44,11 @@ export const ConnectionController = {
       return ApiResponse.ok(res, 'Connection test successful', result);
     } catch (err) { next(err); }
   },
+
+  async testNew(req, res, next) {
+    try {
+      const result = await ConnectionService.testNewConnection(req.user.id, req.body);
+      return ApiResponse.ok(res, 'Connection test successful', result);
+    } catch (err) { next(err); }
+  },
 };

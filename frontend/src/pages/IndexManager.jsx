@@ -91,17 +91,13 @@ const IndexManager = () => {
     const endpoint = `/indexes/${uploadIndexId}/ingest/${isJson ? "json" : "csv"}`;
 
     try {
-      const token = localStorage.getItem('token');
-      const res = await fetch(`http://localhost:5020/api/v1${endpoint}`, {
-        method: 'POST',
+      const res = await api.post(endpoint, formData, {
         headers: {
-          'Authorization': `Bearer ${token}`
-        },
-        body: formData
+          'Content-Type': 'multipart/form-data'
+        }
       });
       
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message || 'Failed to upload');
+      const data = res.data;
 
       toast.success("File uploaded and ingestion job started!");
       setFile(null);
