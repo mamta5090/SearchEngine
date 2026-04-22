@@ -4,10 +4,11 @@ import { randomUUID } from 'crypto';
 export const ConnectionRepository = {
   async create({ userId, name, host, port, database_name, db_username, encrypted_password, ssl }) {
     const id = randomUUID();
+    // ADDED created_at and NOW() for MySQL 5.1 compatibility
     await db.execute(
       `INSERT INTO database_connections
-        (id, user_id, name, db_type, host, port, database_name, db_username, encrypted_password, \`ssl\`)
-       VALUES (?, ?, ?, 'mysql', ?, ?, ?, ?, ?, ?)`,
+        (id, user_id, name, host, port, database_name, db_username, encrypted_password, \`ssl\`, created_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())`,
       [id, userId, name, host, port, database_name, db_username, encrypted_password, ssl ? 1 : 0]
     );
     return this.findById(id, userId);
@@ -15,7 +16,7 @@ export const ConnectionRepository = {
 
   async findById(id, userId) {
     const [rows] = await db.execute(
-      `SELECT id, user_id, name, db_type, host, port, database_name, db_username, \`ssl\`, created_at, updated_at
+      `SELECT id, user_id, name, host, port, database_name, db_username, \`ssl\`, created_at, updated_at
        FROM database_connections
        WHERE id = ? AND user_id = ? LIMIT 1`,
       [id, userId]
@@ -23,28 +24,23 @@ export const ConnectionRepository = {
     return rows[0] || null;
   },
 
-  // Returns encrypted_password too (only used internally for test-connection)
-  async findByIdWithSecret(id, userId) {
-    const [rows] = await db.execute(
-      `SELECT * FROM database_connections WHERE id = ? AND user_id = ? LIMIT 1`,
-      [id, userId]
-    );
-    return rows[0] || null;
-  },
-
   async listByUser(userId, limit, offset) {
-   const [rows] = await db.execute(
-  `SELECT id, user_id, name, db_type, host, port, database_name, db_username, \`ssl\`, created_at, updated_at
-   FROM database_connections
-   WHERE user_id = ?
-   ORDER BY created_at DESC
-   LIMIT ${Number(limit)} OFFSET ${Number(offset)}`,
-  [userId]
-);
-    const [[{ total }]] = await db.execute(
+    const [rows] = await db.execute(
+      `SELECT id, user_id, name, host, port, database_name, db_username, \`ssl\`, created_at, updated_at
+       FROM database_connections
+       WHERE user_id = ?
+       ORDER BY created_at DESC
+       LIMIT ${Number(limit)} OFFSET ${Number(offset)}`,
+      [userId]
+    );
+
+    // FIX: Simplified count logic for compatibility
+    const [countRows] = await db.execute(
       'SELECT COUNT(*) AS total FROM database_connections WHERE user_id = ?',
       [userId]
     );
+    
+    const total = countRows[0].total;
     return { rows, total };
   },
 

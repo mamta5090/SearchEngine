@@ -10,7 +10,10 @@ import { errorHandler } from './middleware/errorHandler.js';
 import authRouter from './modules/auth/auth.router.js';
 import connectionRouter from './modules/connections/connection.router.js';
 import ingestionRouter from './modules/ingestion/ingestion.router.js';
-import searchRouter from './modules/search/search.router.js';
+import moduleSearchRouter from './modules/search/search.router.js';
+import searchRouter from './routes/search.routes.js';
+import productRouter from './routes/product.routes.js';
+//import { searchProducts } from './controllers/search.controller.js';
 
 const app = express();
 const PORT = process.env.PORT || 5020;
@@ -42,7 +45,9 @@ app.get('/health', async (req, res) => {
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/connections', connectionRouter);
 app.use('/api/v1/indexes', ingestionRouter);
-app.use('/api/v1/search', searchRouter);
+app.use('/api/v1/search', moduleSearchRouter);
+app.use("/search",searchRouter)
+app.use("/api/v1/products",productRouter);
 
 // ── 404 handler ────────────────────────────────────────────────
 app.use((req, res) => {

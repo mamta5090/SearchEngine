@@ -9,6 +9,8 @@ import Dashboard from './pages/Dashboard';
 import ConnectionsManager from './pages/ConnectionsManager';
 import IndexManager from './pages/IndexManager';
 import SearchInterface from './pages/SearchInterface';
+import SearchPage from './pages/SearchPage';
+import AddProductPage from './pages/AddProductPage';
 
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
@@ -30,6 +32,8 @@ function App() {
           <Route path="connections" element={<ConnectionsManager />} />
           <Route path="indexes" element={<IndexManager />} />
           <Route path="search" element={<SearchInterface />} />
+           <Route path="instant-search" element={<SearchPage />} />
+           <Route path="add" element={<AddProductPage />} />
         </Route>
       </Routes>
     </Router>

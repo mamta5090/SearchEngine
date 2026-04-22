@@ -100,7 +100,7 @@ export const ConnectionService = {
       user: conn.db_username,
       password: plainPassword,
       database: conn.database_name,
-      connectTimeout: 5000,
+      connectTimeout: 5020,
       ssl: conn.ssl ? { rejectUnauthorized: false } : undefined,
     };
 
@@ -127,7 +127,7 @@ export const ConnectionService = {
       user: data.username || data.db_username,
       password: data.password,
       database: data.database || data.database_name,
-      connectTimeout: 5000,
+      connectTimeout: 5020,
       ssl: data.ssl ? { rejectUnauthorized: false } : undefined,
     };
 

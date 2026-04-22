@@ -19,9 +19,10 @@ export const AuthRepository = {
 
   async create(name, email, hashedPassword) {
     const [result] = await db.execute(
-      'INSERT INTO user1 (name, email, password) VALUES (?, ?, ?)',
+      "INSERT INTO user1 (name, email, password, created_at) VALUES (?, ?, ?, NOW())",
       [name, email, hashedPassword]
     );
+    
     return { id: result.insertId, name, email };
   },
 };

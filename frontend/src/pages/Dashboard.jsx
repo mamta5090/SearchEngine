@@ -28,6 +28,13 @@ const Dashboard = () => {
       href: '/search',
       color: 'bg-blue-50 text-blue-600',
     },
+    {
+      title: 'Search-Product',
+      description: 'Run search queries and test relevance.',
+      icon: FiSearch,
+      href: '/instant-search',
+      color: 'bg-blue-50 text-blue-600',
+    },
   ];
 
   return (
