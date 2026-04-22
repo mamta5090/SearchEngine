@@ -54,7 +54,7 @@ export default function ProductForm() {
 
     try {
       const res = await axios.post(
-        "http://localhost:5020/api/products/import",
+        "http://localhost:5020/api/v1/products/import",
         fd,
         {
           headers: { "Content-Type": "multipart/form-data" },
