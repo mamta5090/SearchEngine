@@ -1,4 +1,4 @@
-import Typesense from "typesense";
+import Typesense from "typesense/lib/Typesense.js";
 
 export const client = new Typesense.Client({
   nodes: [

@@ -19,6 +19,8 @@ const PrivateRoute = ({ children }) => {
   
   return user ? children : <Navigate to="/login" />;
 };
+export const ServerUrl="http://localhost:5020";
+//export const serverUrl = "https://untagged-deplored-sadness.ngrok-free.dev";
 
 function App() {
   return (

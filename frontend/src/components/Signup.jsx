@@ -13,7 +13,8 @@ const Signup = () => {
     const handleSignup=async (e)=>{
         e.preventDefault();
         try {
-            const res=await axios.post(`${serverUrl}/auth/signup`, data)
+            const res=await axios.post(`http://localhost:5020/auth/signup`, data)
+            //    const res=await axios.post(`${serverUrl}/auth/signup`, data)
             console.log(res.data);
                 if(res.data.success){
                     navigate("/login")

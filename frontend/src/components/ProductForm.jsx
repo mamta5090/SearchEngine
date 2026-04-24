@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { ServerUrl } from "../App";
 
 export default function ProductForm() {
   const [form, setForm] = useState({
@@ -25,7 +26,8 @@ export default function ProductForm() {
 
     try {
       const res = await axios.post(
-        "http://localhost:5020/api/v1/products/manual",
+        " /api/v1/products/manual",
+       //"https://untagged-deplored-sadness.ngrok-free.dev/api/v1/products/manual", 
         form
       );
       setMessage(res.data.message);
@@ -54,7 +56,8 @@ export default function ProductForm() {
 
     try {
       const res = await axios.post(
-        "http://localhost:5020/api/v1/products/import",
+        `http://localhost:5020/api/v1/products/import`,
+        //        `${serverUrl}/api/v1/products/manual`,
         fd,
         {
           headers: { "Content-Type": "multipart/form-data" },

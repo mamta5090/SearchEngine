@@ -23,9 +23,13 @@ app.use(cors({
   origin: true ,
   credentials: false,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'ngrok-skip-browser-warning'],
   exposedHeaders: ['Authorization'],
 }));
+
+// app.use(cors({
+//   origin: "*",
+// }));
 
 app.use(express.json({ limit: '1mb' }));   // body payloads; files go through multer
 app.use(express.urlencoded({ extended: true }));

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { ServerUrl } from "../App";
 
 export default function SearchBox() {
   const [query, setQuery] = useState("");
@@ -23,6 +24,8 @@ export default function SearchBox() {
     try {
       const res = await axios.get(
         `http://localhost:5020/search?q=${encodeURIComponent(query)}`
+        //  `${serverUrl}/search?q=${encodeURIComponent(query)}`,
+       // `https://untagged-deplored-sadness.ngrok-free.dev` + `/search?q=${encodeURIComponent(query)}`
       );
       setResults(res.data.hits || []);
     } catch (err) {

@@ -12,6 +12,8 @@ const DashboardLayout = () => {
     { name: 'Connections', href: '/connections', icon: FiDatabase },
     { name: 'Indexes', href: '/indexes', icon: FiLayers },
     { name: 'Search', href: '/search', icon: FiSearch },
+     { name: 'Add Product', href: '/add', icon: FiLayers },
+    { name: 'Search Product', href: '/instant-search', icon: FiSearch },
   ];
 
   return (
